@@ -1,7 +1,10 @@
 junit-3*
 *.class
+<<<<<<< master
 .idea/
 # elm-package generated files
 elm-stuff/
 # elm-repl generated files
 repl-temp-*
+=======
+>>>>>>> Initial Ch 1 commit
