@@ -17,7 +17,7 @@ To run the test file (after you get it to build):
 To build the implementation:
  * `javac Dollar.java`
 
-When you start the chapter, the following shell of MoneyTest.java is the first file to modify:
+When you start the chapter, the following shell of `MoneyTest.java` is the first file to modify:
 ```java
 import static junit.framework.Assert.*;
 import junit.framework.TestCase;
@@ -28,7 +28,7 @@ public class MoneyTest extends TestCase {
 }
 ```
 
-Dollar.java can start empty.
+`Dollar.java` can start empty.
 
 Be aware that the four compile errors the author mentions on page 5
 do not appear with these wordings with a modern Java compiler. However, the four steps he outlines
