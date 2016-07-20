@@ -1,5 +1,5 @@
 # TDDbyE
-## Code samples from Test-Driven Development by Example, in various languages
+## Code samples from _Test-Driven Development by Example_, in various languages
 
 ### This version of `README.md` is associated with the Java branch and implementation.
 
@@ -18,7 +18,7 @@ To build the implementation:
  * `javac Dollar.java`
 
 When you start the chapter, the following shell of MoneyTest.java is the first file to modify:
-```
+```java
 import static junit.framework.Assert.*;
 import junit.framework.TestCase;
 
