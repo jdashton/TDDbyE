@@ -2,9 +2,10 @@ class Dollar
   attr_reader :amount
 
   def initialize amount
-    @amount = 5 * 2
+    @amount = amount
   end
 
   def times multiplier
+    @amount = @amount * 2
   end
 end
