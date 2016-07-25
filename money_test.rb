@@ -1,5 +1,8 @@
 require 'minitest/autorun'
+require 'minitest/reporters'
 require_relative 'dollar'
+
+Minitest::Reporters.use!
 
 class MoneyTest < Minitest::Test
   def test_multiplication
