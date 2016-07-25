@@ -1,3 +1,7 @@
 junit-3*
 *.class
 .idea/
+# elm-package generated files
+elm-stuff/
+# elm-repl generated files
+repl-temp-*
