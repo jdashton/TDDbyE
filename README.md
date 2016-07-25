@@ -14,3 +14,10 @@ After getting the first test to run (and fail) rather than err, I found that
 the default test reporter for MiniTest has no color. To get color, I installed
 the minitest-reporters gem, with `gem install minitest-reporters`. I also
 added the necessary code to the top of `money_test.rb`.
+
+The tests are in `money_test.rb`, and the implementation in `dollar.rb`.
+
+To run the test:
+ * `ruby money_test.rb`
+
+
