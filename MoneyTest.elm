@@ -9,13 +9,13 @@ tests : Test
 tests =
   let
       five =
-        Dollar.init 5
+        Dollar 5
   in
     suite "Suite of Money tests"
-        [ test "Multiplication10" <| assertEqual 10 (times 2 five |> amount)
-        , test "Multiplication15" <| assertEqual 15 (times 3 five |> amount)
-        , test "Equality"         <| assert(Dollar.init(5) == Dollar.init(5))
-        , test "Inequality"       <| assert(Dollar.init(5) /= Dollar.init(6))
+        [ test "Multiplication10" <| assertEqual (Dollar 10) (five |> times 2)
+        , test "Multiplication15" <| assertEqual (Dollar 15) (five |> times 3)
+        , test "Equality"         <| assert <| Dollar 5 == Dollar 5
+        , test "Inequality"       <| assert <| Dollar 5 /= Dollar 6
         ]
 
 
