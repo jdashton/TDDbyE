@@ -1,6 +1,4 @@
-class Franc {
-
-  private int amount;
+class Franc extends Money {
 
   Franc(int amount) {
     this.amount = amount;
@@ -11,7 +9,7 @@ class Franc {
   }
 
   public boolean equals(Object object) {
-    Franc dollar = (Franc) object;
-    return amount == dollar.amount;
+    Money money = (Money) object;
+    return amount == money.amount;
   }
 }
