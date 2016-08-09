@@ -23,6 +23,7 @@ class MoneyTest < Minitest::Test
     assert Dollar.new(5) != Dollar.new(6)
     assert Franc.new(5) == Franc.new(5)
     assert Franc.new(5) != Franc.new(6)
+    assert Franc.new(5) != Dollar.new(5)
   end
 end
 
