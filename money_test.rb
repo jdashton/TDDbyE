@@ -21,6 +21,8 @@ class MoneyTest < Minitest::Test
   def test_equality
     assert Dollar.new(5) == Dollar.new(5)
     assert Dollar.new(5) != Dollar.new(6)
+    assert Franc.new(5) == Franc.new(5)
+    assert Franc.new(5) != Franc.new(6)
   end
 end
 
