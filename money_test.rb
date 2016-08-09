@@ -11,6 +11,12 @@ class MoneyTest < Minitest::Test
     assert_equal Dollar.new(15), five.times(3)
   end
 
+  def test_franc_multiplication
+    five = Franc.new 5
+    assert_equal Franc.new(10), five.times(2)
+    assert_equal Franc.new(15), five.times(3)
+  end
+
   def test_equality
     assert Dollar.new(5) == Dollar.new(5)
     assert Dollar.new(5) != Dollar.new(6)
