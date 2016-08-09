@@ -1,11 +1,11 @@
-module Dollar exposing (..)
+module Franc exposing (..)
 
 
 
-type alias Dollar =
+type alias Franc =
   { amount : Int }
 
 
-times : Int -> Dollar -> Dollar
+times : Int -> Franc -> Franc
 times multiplier dol =
   { dol | amount = dol.amount * multiplier }
