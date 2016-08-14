@@ -21,6 +21,7 @@ tests =
         , test "Equality Franc"         <| assert <| Franc 5 == Franc 5
         , test "Inequality Franc"       <| assert <| Franc 5 /= Franc 6
         , test "Inequality CHF to USD"  <| assert <| Franc 5 /= Dollar 5
+        , test "Currency USD"           <| assertEqual "USD" (five_usd |> currency)
         ]
 
 
