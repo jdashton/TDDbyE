@@ -4,7 +4,6 @@ import ElmTest exposing (..)
 import Money exposing (..)
 
 
-
 tests : Test
 tests =
   let
@@ -21,7 +20,8 @@ tests =
         , test "Equality Franc"         <| assert <| Franc 5 == Franc 5
         , test "Inequality Franc"       <| assert <| Franc 5 /= Franc 6
         , test "Inequality CHF to USD"  <| assert <| Franc 5 /= Dollar 5
-        , test "Currency USD"           <| assertEqual "USD" (five_usd |> currency)
+        , test "Currency USD"           <| assertEqual "USD" (Dollar 1 |> currency)
+        , test "Currency CHF"           <| assertEqual "CHF" (Franc 1 |> currency)
         ]
 
 
