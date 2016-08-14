@@ -10,6 +10,10 @@ class Money
     @amount == money.amount && self.class == money.class
   end
 
+  def currency
+
+  end
+
   def self.dollar(amount)
     Dollar.new(amount)
   end

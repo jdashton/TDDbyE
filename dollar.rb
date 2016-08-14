@@ -1,16 +1,17 @@
-require_relative 'money'
-
 class Dollar < Money
+
+  attr_reader :currency
 
   def initialize (amount)
     @amount = amount
+    @currency = 'USD'
   end
 
   def times (multiplier)
     Dollar.new (@amount * multiplier)
   end
 
-  def currency(i, i1)
-    # code here
-  end
+  # def currency
+  #   'USD'
+  # end
 end
