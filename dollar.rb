@@ -9,4 +9,8 @@ class Dollar < Money
   def times (multiplier)
     Dollar.new (@amount * multiplier)
   end
+
+  def currency(i, i1)
+    # code here
+  end
 end
