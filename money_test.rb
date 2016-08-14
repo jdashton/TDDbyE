@@ -26,5 +26,10 @@ class MoneyTest < Minitest::Test
     assert Money.franc(5) != Money.franc(6)
     assert Money.franc(5) != Money.dollar(5)
   end
+
+  def testCurrency
+    assert_equal "USD", Money.dollar(1).currency
+    assert_equal "CHF", Money.franc(1).currency
+  end
 end
 
