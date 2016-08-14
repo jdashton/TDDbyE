@@ -1,7 +1,5 @@
 class Dollar < Money
 
-  attr_reader :currency
-
   def initialize (amount)
     @amount = amount
     @currency = 'USD'
@@ -11,7 +9,4 @@ class Dollar < Money
     Dollar.new (@amount * multiplier)
   end
 
-  # def currency
-  #   'USD'
-  # end
 end
