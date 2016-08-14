@@ -14,3 +14,13 @@ times multiplier money =
 
     Franc amount ->
       Franc <| amount * multiplier
+
+
+currency : Money -> String
+currency money =
+  case money of
+    Dollar _ ->
+      "USD"
+
+    Franc _ ->
+      "CHF"
