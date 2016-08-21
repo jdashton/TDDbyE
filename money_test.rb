@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/reporters'
 require_relative 'money'
+require_relative 'bank'
 
 Minitest::Reporters.use!
 
