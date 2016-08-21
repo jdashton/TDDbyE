@@ -1,7 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/reporters'
 require_relative 'money'
-require_relative 'dollar'
 require_relative 'franc'
 
 Minitest::Reporters.use!
@@ -22,8 +21,6 @@ class MoneyTest < Minitest::Test
   def test_equality
     assert Money.dollar(5) == Money.dollar(5)
     assert Money.dollar(5) != Money.dollar(6)
-    assert Money.franc(5) == Money.franc(5)
-    assert Money.franc(5) != Money.franc(6)
     assert Money.franc(5) != Money.dollar(5)
   end
 
