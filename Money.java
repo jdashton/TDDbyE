@@ -1,8 +1,12 @@
 
 class Money {
 
-  Money times(int multiplier) {
-    return new Money(amount * multiplier, currency);
+  static Money dollar(int amount) {
+    return new Money(amount, "USD");
+  }
+
+  static Money franc(int amount) {
+    return new Money(amount, "CHF");
   }
 
   protected int amount;
@@ -19,12 +23,12 @@ class Money {
       && currency().equals(money.currency());
   }
 
-  static Money dollar(int amount) {
-    return new Money(amount, "USD");
+  Money times(int multiplier) {
+    return new Money(amount * multiplier, currency);
   }
 
-  static Money franc(int amount) {
-    return new Money(amount, "CHF");
+  Money plus(Money addend) {
+    return new Money(amount + addend.amount, currency);
   }
 
   String currency() {
