@@ -1,5 +1,9 @@
 class Money
 
+  def times (multiplier)
+    Money.new (@amount * multiplier), @currency
+  end
+
   attr_reader :currency
 
   def initialize (amount, currency)
