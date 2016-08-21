@@ -24,6 +24,6 @@ class MoneyTest < Minitest::Test
 
   def test_simple_addition
     sum = Money.dollar(5).plus(Money.dollar(5))
-    assert_equal Money.dollar(10), sum
+    assert_equal Money.dollar(10), reduced
   end
 end
