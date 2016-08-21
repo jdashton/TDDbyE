@@ -19,6 +19,10 @@ class Money
     Franc.new amount, 'CHF'
   end
 
+  def inspect
+    "#{@amount} #{@currency}"
+  end
+
   protected
 
   attr_reader :amount
