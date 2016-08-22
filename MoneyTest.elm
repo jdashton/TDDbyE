@@ -7,21 +7,21 @@ import Money exposing (..)
 tests : Test
 tests =
   let
-      five_usd = Dollar 5
-      five_chf = Franc 5
+      five_usd = dollar 5
+      five_chf = franc 5
   in
     suite "Suite of Money tests"
-        [ test "Multiplication10"       <| assertEqual (Dollar 10) (five_usd |> times 2)
-        , test "Multiplication15"       <| assertEqual (Dollar 15) (five_usd |> times 3)
-        , test "Multiplication10 Franc" <| assertEqual (Franc 10) (five_chf |> times 2)
-        , test "Multiplication15 Franc" <| assertEqual (Franc 15) (five_chf |> times 3)
-        , test "Equality"               <| assert <| Dollar 5 == Dollar 5
-        , test "Inequality"             <| assert <| Dollar 5 /= Dollar 6
-        , test "Equality Franc"         <| assert <| Franc 5 == Franc 5
-        , test "Inequality Franc"       <| assert <| Franc 5 /= Franc 6
-        , test "Inequality CHF to USD"  <| assert <| Franc 5 /= Dollar 5
-        , test "Currency USD"           <| assertEqual "USD" (Dollar 1 |> currency)
-        , test "Currency CHF"           <| assertEqual "CHF" (Franc 1 |> currency)
+        [ test "Multiplication10"       <| assertEqual (dollar 10) (five_usd |> times 2)
+        , test "Multiplication15"       <| assertEqual (dollar 15) (five_usd |> times 3)
+        , test "Multiplication10 franc" <| assertEqual (franc 10) (five_chf |> times 2)
+        , test "Multiplication15 franc" <| assertEqual (franc 15) (five_chf |> times 3)
+        , test "Equality"               <| assert <| dollar 5 == dollar 5
+        , test "Inequality"             <| assert <| dollar 5 /= dollar 6
+        , test "Equality franc"         <| assert <| franc 5 == franc 5
+        , test "Inequality franc"       <| assert <| franc 5 /= franc 6
+        , test "Inequality CHF to USD"  <| assert <| franc 5 /= dollar 5
+        , test "Currency USD"           <| assertEqual "USD" (dollar 1 |> currency)
+        , test "Currency CHF"           <| assertEqual "CHF" (franc 1 |> currency)
         ]
 
 
