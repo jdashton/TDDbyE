@@ -23,6 +23,15 @@ times multiplier money =
     Money (amount * multiplier) currency
 
 
+plus : Money -> Money -> Money
+plus money addend =
+  let
+    (Money amount currency) = money
+    (Money add_amt _) = addend
+  in
+    Money (amount + add_amt) currency
+
+
 currency : Money -> String
 currency money =
   let
