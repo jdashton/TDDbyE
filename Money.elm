@@ -2,32 +2,30 @@ module Money exposing (..)
 
 
 type Money
-  = Dollar Int String
-  | Franc Int String
+  = Money Int String
 
 
 dollar : Int -> Money
 dollar amount =
-  Dollar amount "USD"
+  Money amount "USD"
 
 
 franc : Int -> Money
 franc amount =
-  Franc amount "CHF"
+  Money amount "CHF"
 
 
 times : Int -> Money -> Money
 times multiplier money =
-  case money of
-    Dollar amount currency ->
-      dollar <| amount * multiplier
-
-    Franc amount currency ->
-      franc <| amount * multiplier
+  let
+    (Money amount currency) = money
+  in
+    Money (amount * multiplier) currency
 
 
 currency : Money -> String
 currency money =
-  case money of
-    Dollar _ currency -> currency
-    Franc  _ currency -> currency
+  let
+    (Money _ currency) = money
+  in
+    currency
