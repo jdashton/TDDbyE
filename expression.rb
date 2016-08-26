@@ -1,5 +1,10 @@
 class Expression
-  def reduce (bank, to)
+  def reduce(bank, to)
+    raise NotImplementedError.
+      new "#{self.class.name}#area is an abstract method."
+  end
+
+  def plus(addend)
     raise NotImplementedError.
       new "#{self.class.name}#area is an abstract method."
   end
