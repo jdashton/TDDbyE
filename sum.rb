@@ -5,7 +5,7 @@ class Sum < Expression
   attr_reader :addend
 
   def initialize (augend, addend)
-    # @augend = augend
-    # @addend = addend
+    @augend = augend
+    @addend = addend
   end
 end
