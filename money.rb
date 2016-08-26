@@ -33,8 +33,8 @@ class Money < Expression
     "#{@amount} #{@currency}"
   end
 
-  def reduce (to)
-    rate = currency == 'CHF' && to == 'USD' ? 2 : 1
+  def reduce (bank, to)
+    rate = bank.rate currency, to
     Money.new amount / rate, to
   end
 
