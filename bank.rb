@@ -1,19 +1,25 @@
-
 class Bank
+  public
+
+  def initialize
+    @rates = Hash.new
+  end
+
   def reduce(source, to)
     source.reduce self, to
   end
 
-  def addRate(i, i1, i2)
-    # code here
+  def add_rate(from, to, rate)
+    @rates[[from, to]] = rate
   end
 
   def rate(from, to)
-    from == 'CHF' && to == 'USD' ? 2 : 1
+    return 1 if from == to
+    @rates[[from, to]]
   end
 
   private
 
-  @rates = Hash.new
+  @rates
 
 end
