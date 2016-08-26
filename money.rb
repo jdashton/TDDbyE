@@ -1,4 +1,6 @@
-class Money
+require_relative 'expression'
+
+class Money < Expression
 
   attr_reader :currency
 
@@ -16,7 +18,7 @@ class Money
   end
 
   def plus (addend)
-    Money.new (@amount + addend.amount), @currency
+    Sum.new self, addend
   end
 
   def self.dollar(amount)

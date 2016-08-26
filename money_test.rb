@@ -2,6 +2,8 @@ require 'minitest/autorun'
 require 'minitest/reporters'
 require_relative 'money'
 require_relative 'bank'
+require_relative 'sum'
+require_relative 'expression'
 
 Minitest::Reporters.use!
 
@@ -29,5 +31,13 @@ class MoneyTest < Minitest::Test
     bank = Bank.new
     reduced = bank.reduce sum, 'USD'
     assert_equal Money.dollar(10), reduced
+  end
+
+  def test_plus_returns_sum
+    five = Money.dollar 5
+    result = five.plus five
+    sum = result
+    assert_equal five, sum.augend
+    assert_equal five, sum.addend
   end
 end
