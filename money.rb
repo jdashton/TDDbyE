@@ -5,7 +5,7 @@ class Money < Expression
   attr_reader :currency
 
   def initialize (amount, currency)
-    @amount = amount
+    @amount   = amount
     @currency = currency
   end
 
@@ -33,10 +33,15 @@ class Money < Expression
     "#{@amount} #{@currency}"
   end
 
-  protected
+  def reduce (to)
+    self
+  end
 
   attr_reader :amount
-  @amount = 0
+
+  protected
+
+  @amount   = 0
   @currency = ''
 
 end
