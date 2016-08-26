@@ -13,4 +13,8 @@ class Sum < Expression
     amount = augend.reduce(bank, to).amount + addend.reduce(bank, to).amount
     Money.new amount, to
   end
+
+  def plus(addend)
+    nil
+  end
 end
