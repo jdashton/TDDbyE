@@ -11,4 +11,9 @@ class Bank
   def rate(from, to)
     from == 'CHF' && to == 'USD' ? 2 : 1
   end
+
+  private
+
+  @rates = Hash.new
+
 end
