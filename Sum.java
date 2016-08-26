@@ -12,4 +12,8 @@ class Sum implements Expression {
       + addend.reduce(bank, to).amount;
     return new Money(amount, to);
   }
+
+  public Expression plus(Expression addend) {
+    return null;
+  }
 }
