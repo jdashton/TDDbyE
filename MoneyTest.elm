@@ -3,7 +3,6 @@ module MoneyTest  exposing (..)
 import ElmTest exposing (..)
 import Money exposing (..)
 import Bank exposing (..)
-import Sum exposing (..)
 
 
 tests : Test
@@ -12,7 +11,9 @@ tests =
       five_usd = dollar 5
       five_chf = franc 5
       sum      = five_usd `plus` five_usd
-      reduced  = Bank.reduce sum "USD"
+      reduced  = Bank.reduce (SumExp sum) "USD"
+      result   = Bank.reduce (SumExp ((dollar 3) `plus` (dollar 4))) "USD"
+      res1     = Bank.reduce (MoneyExp (dollar 1)) "USD"
   in
     suite "Suite of Money tests"
         [ test "Multiplication10"       <| assertEqual (dollar 10) (five_usd |> times 2)
@@ -23,8 +24,10 @@ tests =
         , test "Currency USD"           <| assertEqual "USD" (dollar 1 |> currency)
         , test "Currency CHF"           <| assertEqual "CHF" (franc 1 |> currency)
         , test "Simple Addition"        <| assertEqual (dollar 10) reduced
-        , test "Plus return Sum A"      <| assertEqual five_usd sum.augend
-        , test "Plus return Sum B"      <| assertEqual five_usd sum.addend
+        , test "Plus return Sum augend" <| assertEqual five_usd sum.augend
+        , test "Plus return Sum addend" <| assertEqual five_usd sum.addend
+        , test "Reduce Sum"             <| assertEqual (dollar 7) result
+        , test "Reduce Money"           <| assertEqual (dollar 1) res1
         ]
 
 

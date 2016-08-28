@@ -1,9 +1,6 @@
 module Money exposing (..)
 
 
-import Sum exposing (..)
-
-
 type Money
   = Money Int String
 
@@ -26,7 +23,7 @@ times multiplier money =
     Money (amount * multiplier) currency
 
 
-plus : Money -> Money -> Sum Money
+plus : Money -> Money -> Sum
 plus augend addend =
   Sum augend addend
 
@@ -37,3 +34,31 @@ currency money =
     (Money _ currency) = money
   in
     currency
+
+
+type alias Sum =
+  { augend : Money
+  , addend : Money
+  }
+
+
+reduce : Expression -> String -> Money
+reduce exp to =
+  case exp of
+    SumExp sum -> reduceSum sum to
+    MoneyExp money -> money
+
+
+reduceSum : Sum -> String -> Money
+reduceSum sum to =
+  let
+    (Money amt1 cur1) = sum.augend
+    (Money amt2 cur2) = sum.addend
+    amount = amt1 + amt2
+  in
+    Money amount to
+
+
+type Expression
+  = MoneyExp Money
+  | SumExp Sum

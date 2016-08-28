@@ -4,7 +4,6 @@ module Bank exposing (..)
 import Money exposing (..)
 
 
-reduce : Money -> String -> Money
-reduce money currency =
-    Money.dollar 10
-
+reduce : Expression -> String -> Money
+reduce exp to =
+  Money.reduce exp to
