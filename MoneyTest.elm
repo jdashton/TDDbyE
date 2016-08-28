@@ -3,6 +3,7 @@ module MoneyTest  exposing (..)
 import ElmTest exposing (..)
 import Money exposing (..)
 import Bank exposing (..)
+import Sum exposing (..)
 
 
 tests : Test
@@ -22,6 +23,8 @@ tests =
         , test "Currency USD"           <| assertEqual "USD" (dollar 1 |> currency)
         , test "Currency CHF"           <| assertEqual "CHF" (franc 1 |> currency)
         , test "Simple Addition"        <| assertEqual (dollar 10) reduced
+        , test "Plus return Sum A"      <| assertEqual five_usd sum.augend
+        , test "Plus return Sum B"      <| assertEqual five_usd sum.addend
         ]
 
 

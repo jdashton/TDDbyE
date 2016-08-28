@@ -1,6 +1,9 @@
 module Money exposing (..)
 
 
+import Sum exposing (..)
+
+
 type Money
   = Money Int String
 
@@ -23,13 +26,9 @@ times multiplier money =
     Money (amount * multiplier) currency
 
 
-plus : Money -> Money -> Money
-plus money addend =
-  let
-    (Money amount currency) = money
-    (Money add_amt _) = addend
-  in
-    Money (amount + add_amt) currency
+plus : Money -> Money -> Sum Money
+plus augend addend =
+  Sum augend addend
 
 
 currency : Money -> String
