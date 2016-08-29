@@ -11,13 +11,11 @@ import Bank exposing (..)
 tests : Test
 tests =
   describe "Suite of Money tests"
-    [ test "Multiplication"         <| \() ->
-        let five = dollar 5
-        in  Expect.equal (MoneyExp <| dollar 10) (five `times` 2)
-    , test "Multiplication 15"      <| \() ->
-        let five = dollar 5
-        in  Expect.equal (MoneyExp <| dollar 15) (five `times` 3)
-
+    [ let five = dollar 5
+      in describe "Multiplication"
+      [ test "times 2"              <| \() -> Expect.equal (MoneyExp <| dollar 10) (five `times` 2)
+      , test "times 3"              <| \() -> Expect.equal (MoneyExp <| dollar 15) (five `times` 3)
+      ]
     , test "Equality"               <| \() -> Expect.true  "$5 == $5"    <| dollar 5 == dollar 5
     , test "Inequality"             <| \() -> Expect.false "$5 != $6"    <| dollar 5 == dollar 6
     , test "Inequality CHF to USD"  <| \() -> Expect.false "$5 != 5 Fr." <|  franc 5 == dollar 5
@@ -33,19 +31,13 @@ tests =
         in
           Expect.equal (dollar 10) reduced
 
-    , test "Plus Returns Sum: augend" <| \() ->
-        let
-          five    = MoneyExp <| dollar 5
-          sum     = five `plus` five
-        in
-          Expect.equal five sum.augend
-    , test "Plus Returns Sum: addend" <| \() ->
-        let
-          five    = MoneyExp <| dollar 5
-          sum     = five `plus` five
-        in
-          Expect.equal five sum.addend
-
+    , let
+        five    = MoneyExp <| dollar 5
+        sum     = five `plus` five
+      in describe "Plus Returns Sum"
+        [ test "Plus Returns Sum: augend" <| \() -> Expect.equal five sum.augend
+        , test "Plus Returns Sum: addend" <| \() -> Expect.equal five sum.addend
+        ]
     , test "Reduce Sum"             <| \() ->
         let
           sum     = Sum (MoneyExp <| dollar 3) (MoneyExp <| dollar 4)
