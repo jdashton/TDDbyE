@@ -68,6 +68,16 @@ tests =
 
     , test "Identity Rate"                  <| \() ->
         Expect.equal 1 <| Bank.rate empty_rates "USD" "USD"
+
+    , test "Mixed Addition"                 <| \() ->
+        let
+          fiveBucks = dollar 5
+          tenFrancs = franc 10
+          rates = addRate empty_rates "CHF" "USD" 2
+          result = reduce (SumExp (fiveBucks `plus` tenFrancs)) rates "USD"
+        in
+          Expect.equal (dollar 10) result
+
     ]
 
 
