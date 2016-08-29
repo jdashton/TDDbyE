@@ -9,8 +9,8 @@ type Money
 
 
 type alias Sum =
-  { augend : Money
-  , addend : Money
+  { augend : Expression
+  , addend : Expression
   }
 
 
@@ -29,15 +29,15 @@ franc amount =
   Money amount "CHF"
 
 
-times : Money -> Int -> Money
+times : Money -> Int -> Expression
 times money multiplier =
   let
     (Money amount currency) = money
   in
-    Money (amount * multiplier) currency
+    MoneyExp <| Money (amount * multiplier) currency
 
 
-plus : Money -> Money -> Sum
+plus : Expression -> Expression -> Sum
 plus augend addend =
   Sum augend addend
 
@@ -55,8 +55,8 @@ reduce exp rates to =
   case exp of
     SumExp sum ->
       let
-        (Money amt1 cur1) = sum.augend
-        (Money amt2 cur2) = sum.addend
+        (Money amt1 cur1) = reduce sum.augend rates to
+        (Money amt2 cur2) = reduce sum.addend rates to
         amount = amt1 + amt2
       in
         Money amount to

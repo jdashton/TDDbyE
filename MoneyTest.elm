@@ -13,10 +13,10 @@ tests =
   describe "Suite of Money tests"
     [ test "Multiplication"         <| \() ->
         let five = dollar 5
-        in  Expect.equal (dollar 10) (five `times` 2)
+        in  Expect.equal (MoneyExp <| dollar 10) (five `times` 2)
     , test "Multiplication 15"      <| \() ->
         let five = dollar 5
-        in  Expect.equal (dollar 15) (five `times` 3)
+        in  Expect.equal (MoneyExp <| dollar 15) (five `times` 3)
 
     , test "Equality"               <| \() -> Expect.true  "$5 == $5"    <| dollar 5 == dollar 5
     , test "Inequality"             <| \() -> Expect.false "$5 != $6"    <| dollar 5 == dollar 6
@@ -27,7 +27,7 @@ tests =
 
     , test "Simple Addition"        <| \() ->
         let
-          five    = dollar 5
+          five    = MoneyExp <| dollar 5
           sum     = five `plus` five
           reduced = reduce (SumExp sum) empty_rates "USD"
         in
@@ -35,20 +35,20 @@ tests =
 
     , test "Plus Returns Sum: augend" <| \() ->
         let
-          five    = dollar 5
+          five    = MoneyExp <| dollar 5
           sum     = five `plus` five
         in
           Expect.equal five sum.augend
     , test "Plus Returns Sum: addend" <| \() ->
         let
-          five    = dollar 5
+          five    = MoneyExp <| dollar 5
           sum     = five `plus` five
         in
           Expect.equal five sum.addend
 
     , test "Reduce Sum"             <| \() ->
         let
-          sum     = Sum (dollar 3) (dollar 4)
+          sum     = Sum (MoneyExp <| dollar 3) (MoneyExp <| dollar 4)
           result  = reduce (SumExp sum) empty_rates "USD"
         in
           Expect.equal (dollar 7) result
@@ -71,8 +71,8 @@ tests =
 
     , test "Mixed Addition"                 <| \() ->
         let
-          fiveBucks = dollar 5
-          tenFrancs = franc 10
+          fiveBucks = MoneyExp <| dollar 5
+          tenFrancs = MoneyExp <| franc 10
           rates = addRate empty_rates "CHF" "USD" 2
           result = reduce (SumExp (fiveBucks `plus` tenFrancs)) rates "USD"
         in
