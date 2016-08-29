@@ -1,6 +1,9 @@
 module Money exposing (..)
 
 
+import Bank
+
+
 type Money
   = Money Int String
 
@@ -61,8 +64,6 @@ reduce exp to =
     MoneyExp money ->
       let
         (Money amount currency) = money
-        rate = if currency == "CHF" && to == "USD" then 2 else 1
+        rate = Bank.rate currency to
       in
         Money (amount // rate) to
-
-
