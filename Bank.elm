@@ -5,7 +5,10 @@ module Bank exposing (..)
 import Dict exposing (..)
 
 
-rates = Dict.empty
+empty_rates = Dict.empty
+
+
+type alias Rates = Dict (String, String) Int
 
 
 --reduce : Expression -> String -> Money
@@ -13,6 +16,13 @@ rates = Dict.empty
 --  Money.reduce source to
 
 
-rate : String -> String -> Int
-rate from to =
-  if from == "CHF" && to == "USD" then 2 else 1
+rate : Rates -> String -> String -> Int
+rate rates from to =
+  case get (from, to) rates of
+    Just rate -> rate
+    Nothing -> if from == to then 1 else 0
+
+
+addRate : Rates -> String -> String -> Int -> Rates
+addRate rates from to rate =
+  Dict.insert (from, to) rate rates

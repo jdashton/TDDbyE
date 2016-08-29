@@ -1,7 +1,7 @@
 module Money exposing (..)
 
 
-import Bank
+import Bank exposing (..)
 
 
 type Money
@@ -50,8 +50,8 @@ currency money =
     currency
 
 
-reduce : Expression -> String -> Money
-reduce exp to =
+reduce : Expression -> Rates -> String -> Money
+reduce exp rates to =
   case exp of
     SumExp sum ->
       let
@@ -64,6 +64,6 @@ reduce exp to =
     MoneyExp money ->
       let
         (Money amount currency) = money
-        rate = Bank.rate currency to
+        rate = Bank.rate rates currency to
       in
         Money (amount // rate) to

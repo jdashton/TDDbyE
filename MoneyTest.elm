@@ -5,7 +5,7 @@ import Test exposing (..)
 import Test.Runner.Html
 
 import Money exposing (..)
---import Bank exposing (..)
+import Bank exposing (..)
 
 
 tests : Test
@@ -29,7 +29,7 @@ tests =
         let
           five    = dollar 5
           sum     = five `plus` five
-          reduced = reduce (SumExp sum) "USD"
+          reduced = reduce (SumExp sum) empty_rates "USD"
         in
           Expect.equal (dollar 10) reduced
 
@@ -49,21 +49,25 @@ tests =
     , test "Reduce Sum"             <| \() ->
         let
           sum     = Sum (dollar 3) (dollar 4)
-          result  = reduce (SumExp sum) "USD"
+          result  = reduce (SumExp sum) empty_rates "USD"
         in
           Expect.equal (dollar 7) result
 
     , test "Reduce Money"           <| \() ->
         let
-          result  = reduce (MoneyExp <| dollar 1) "USD"
+          result  = reduce (MoneyExp <| dollar 1) empty_rates "USD"
         in
           Expect.equal (dollar 1) result
 
     , test "Reduce Money Different Currency" <| \() ->
         let
-          result  = reduce (MoneyExp <| franc 2) "USD"
+          rates = addRate empty_rates "CHF" "USD" 2
+          result  = reduce (MoneyExp <| franc 2) rates "USD"
         in
           Expect.equal (dollar 1) result
+
+    , test "Identity Rate"                  <| \() ->
+        Expect.equal 1 <| Bank.rate empty_rates "USD" "USD"
     ]
 
 
