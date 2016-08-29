@@ -5,6 +5,17 @@ type Money
   = Money Int String
 
 
+type alias Sum =
+  { augend : Money
+  , addend : Money
+  }
+
+
+type Expression
+  = MoneyExp Money
+  | SumExp Sum
+
+
 dollar : Int -> Money
 dollar amount =
   Money amount "USD"
@@ -36,29 +47,22 @@ currency money =
     currency
 
 
-type alias Sum =
-  { augend : Money
-  , addend : Money
-  }
-
-
 reduce : Expression -> String -> Money
 reduce exp to =
   case exp of
-    SumExp sum -> reduceSum sum to
-    MoneyExp money -> money
+    SumExp sum ->
+      let
+        (Money amt1 cur1) = sum.augend
+        (Money amt2 cur2) = sum.addend
+        amount = amt1 + amt2
+      in
+        Money amount to
+
+    MoneyExp money ->
+      let
+        (Money amount currency) = money
+        rate = if currency == "CHF" && to == "USD" then 2 else 1
+      in
+        Money (amount // rate) to
 
 
-reduceSum : Sum -> String -> Money
-reduceSum sum to =
-  let
-    (Money amt1 cur1) = sum.augend
-    (Money amt2 cur2) = sum.addend
-    amount = amt1 + amt2
-  in
-    Money amount to
-
-
-type Expression
-  = MoneyExp Money
-  | SumExp Sum
