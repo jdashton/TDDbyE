@@ -1,36 +1,75 @@
 module MoneyTest  exposing (..)
 
-import ElmTest exposing (..)
+import Expect
+import Test exposing (..)
+import Test.Runner.Html
+
 import Money exposing (..)
 import Bank exposing (..)
 
 
 tests : Test
 tests =
-  let
-      five_usd = dollar 5
-      five_chf = franc 5
-      sum      = five_usd `plus` five_usd
-      reduced  = Bank.reduce (SumExp sum) "USD"
-      result   = Bank.reduce (SumExp ((dollar 3) `plus` (dollar 4))) "USD"
-      res1     = Bank.reduce (MoneyExp (dollar 1)) "USD"
-  in
-    suite "Suite of Money tests"
-        [ test "Multiplication10"       <| assertEqual (dollar 10) (five_usd |> times 2)
-        , test "Multiplication15"       <| assertEqual (dollar 15) (five_usd |> times 3)
-        , test "Equality"               <| assert <| dollar 5 == dollar 5
-        , test "Inequality"             <| assert <| dollar 5 /= dollar 6
-        , test "Inequality CHF to USD"  <| assert <| franc 5 /= dollar 5
-        , test "Currency USD"           <| assertEqual "USD" (dollar 1 |> currency)
-        , test "Currency CHF"           <| assertEqual "CHF" (franc 1 |> currency)
-        , test "Simple Addition"        <| assertEqual (dollar 10) reduced
-        , test "Plus return Sum augend" <| assertEqual five_usd sum.augend
-        , test "Plus return Sum addend" <| assertEqual five_usd sum.addend
-        , test "Reduce Sum"             <| assertEqual (dollar 7) result
-        , test "Reduce Money"           <| assertEqual (dollar 1) res1
-        ]
+  describe "Suite of Money tests"
+    [ test "Multiplication"         <| \() ->
+        let five = dollar 5
+        in  Expect.equal (dollar 10) (five `times` 2)
+    , test "Multiplication 15"      <| \() ->
+        let five = dollar 5
+        in  Expect.equal (dollar 15) (five `times` 3)
+
+    , test "Equality"               <| \() -> Expect.true  "$5 == $5"    <| dollar 5 == dollar 5
+    , test "Inequality"             <| \() -> Expect.false "$5 != $6"    <| dollar 5 == dollar 6
+    , test "Inequality CHF to USD"  <| \() -> Expect.false "$5 != 5 Fr." <|  franc 5 == dollar 5
+
+    , test "Currency USD"           <| \() -> Expect.equal "USD" <| currency <| dollar 1
+    , test "Currency CHF"           <| \() -> Expect.equal "CHF" <| currency <| franc 1
+
+    , test "Simple Addition"        <| \() ->
+        let
+          five    = dollar 5
+          sum     = five `plus` five
+          reduced = Bank.reduce (SumExp sum) "USD"
+        in
+          Expect.equal (dollar 10) reduced
+
+    , test "Plus Returns Sum: augend" <| \() ->
+        let
+          five    = dollar 5
+          sum     = five `plus` five
+        in
+          Expect.equal five sum.augend
+    , test "Plus Returns Sum: addend" <| \() ->
+        let
+          five    = dollar 5
+          sum     = five `plus` five
+        in
+          Expect.equal five sum.addend
+
+    , test "Reduce Sum"             <| \() ->
+        let
+          sum     = Sum (dollar 3) (dollar 4)
+          result  = Bank.reduce (SumExp sum) "USD"
+        in
+          Expect.equal (dollar 7) result
+
+    , test "Reduce Money"           <| \() ->
+        let
+          result  = Bank.reduce (MoneyExp <| dollar 1) "USD"
+        in
+          Expect.equal (dollar 1) result
+
+    , test "Reduce Money Different Currency" <| \() ->
+        let
+          result  = Bank.reduce (MoneyExp <| franc 2) "USD"
+        in
+          Expect.equal (dollar 1) result
+    ]
 
 
 main : Program Never
 main =
-  runSuiteHtml tests
+    [ tests
+    ]
+        |> concat
+        |> Test.Runner.Html.run

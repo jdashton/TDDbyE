@@ -15,8 +15,8 @@ franc amount =
   Money amount "CHF"
 
 
-times : Int -> Money -> Money
-times multiplier money =
+times : Money -> Int -> Money
+times money multiplier =
   let
     (Money amount currency) = money
   in
