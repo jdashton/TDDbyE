@@ -17,7 +17,7 @@ class Sum implements Expression {
     return new Sum(this, addend);
   }
 
-  Expression times(int multiplier) {
+  public Expression times(int multiplier) {
     return new Sum(augend.times(multiplier), addend.times(multiplier));
   }
 }
