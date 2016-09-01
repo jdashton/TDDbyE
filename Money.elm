@@ -19,14 +19,19 @@ type Expression
   | SumExp Sum
 
 
-dollar : Int -> Money
+dollar : Int -> Expression
 dollar amount =
-  Money amount "USD"
+  MoneyExp <| Money amount "USD"
 
 
-franc : Int -> Money
+franc : Int -> Expression
 franc amount =
-  Money amount "CHF"
+  MoneyExp <| Money amount "CHF"
+
+
+sum : Expression -> Expression -> Expression
+sum augend addend =
+  SumExp <| Sum augend addend
 
 
 times : Expression -> Int -> Expression
@@ -42,33 +47,47 @@ times exp multiplier =
       SumExp <| Sum (sum.augend `times` multiplier) (sum.addend `times` multiplier)
 
 
-plus : Expression -> Expression -> Sum
+plus : Expression -> Expression -> Expression
 plus augend addend =
-  Sum augend addend
+  SumExp <| Sum augend addend
 
 
 currency : Money -> String
 currency money =
-  let
-    (Money _ currency) = money
-  in
-    currency
+      let (Money _ currency) = money
+      in currency
 
 
-reduce : Expression -> Rates -> String -> Money
+extract_money : Expression -> Money
+extract_money exp =
+  case exp of
+    MoneyExp money -> money
+
+    SumExp _ -> extract_money <| reduce exp empty_rates "USD"
+
+
+extract_sum : Expression -> Sum
+extract_sum exp =
+  case exp of
+    SumExp sum -> sum
+
+    MoneyExp money -> Sum exp (dollar 0)
+
+
+reduce : Expression -> Rates -> String -> Expression
 reduce exp rates to =
   case exp of
     SumExp sum ->
       let
-        (Money amt1 cur1) = reduce sum.augend rates to
-        (Money amt2 cur2) = reduce sum.addend rates to
+        (Money amt1 cur1) = extract_money <| reduce sum.augend rates to
+        (Money amt2 cur2) = extract_money <| reduce sum.addend rates to
         amount = amt1 + amt2
       in
-        Money amount to
+        MoneyExp <| Money amount to
 
     MoneyExp money ->
       let
         (Money amount currency) = money
         rate = Bank.rate rates currency to
       in
-        Money (amount // rate) to
+        MoneyExp <| Money (amount // rate) to
