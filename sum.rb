@@ -15,6 +15,6 @@ class Sum < Expression
   end
 
   def plus(addend)
-    nil
+    Sum.new self, addend
   end
 end
