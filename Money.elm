@@ -29,12 +29,17 @@ franc amount =
   Money amount "CHF"
 
 
-times : Money -> Int -> Expression
-times money multiplier =
-  let
-    (Money amount currency) = money
-  in
-    MoneyExp <| Money (amount * multiplier) currency
+times : Expression -> Int -> Expression
+times exp multiplier =
+  case exp of
+    MoneyExp money ->
+      let
+        (Money amount currency) = money
+      in
+        MoneyExp <| Money (amount * multiplier) currency
+
+    SumExp sum   ->
+      SumExp <| Sum (sum.augend `times` multiplier) (sum.addend `times` multiplier)
 
 
 plus : Expression -> Expression -> Sum

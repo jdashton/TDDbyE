@@ -10,7 +10,7 @@ import Bank exposing (..)
 
 tests : Test
 tests =
-  let five = dollar 5
+  let five = MoneyExp <| dollar 5
   in
     describe "Suite of Money tests"
       [ describe "Multiplication"
@@ -76,6 +76,12 @@ tests =
                 result = reduce sum rates "USD"
               in
                 Expect.equal (dollar 15) result
+          , test "Sum Times"                      <| \() ->
+              let
+                sum = (SumExp <| Sum fiveBucks tenFrancs) `times` 2
+                result = reduce sum rates "USD"
+              in
+                Expect.equal (dollar 20) result
           ]
 
       ]
