@@ -51,6 +51,19 @@ class WasRun(TestCase):
     def testBrokenMethod(self):
         raise Exception
 
+class TestSuite:
+    def __init__(self):
+        self.tests = []
+
+    def add(self, test):
+        self.tests.append(test)
+
+    def run(self):
+        result = TestResult()
+        for test in self.tests:
+            test.run(result)
+        return result
+
 class TestCaseTest(TestCase):
     def testTemplateMethod(self):
         test = WasRun("testMethod")
@@ -75,13 +88,14 @@ class TestCaseTest(TestCase):
 
     def testSuite(self):
         suite = TestSuite()
-        suit.add(WasRun("testMethod"))
+        suite.add(WasRun("testMethod"))
         suite.add(WasRun("testBrokenMethod"))
-        result = suite.run()
+        result = TestResult()
+        suite.run(result)
         assert("2 run, 1 failed" == result.summary())
-
 
 print TestCaseTest("testTemplateMethod").run().summary()
 print TestCaseTest("testResult").run().summary()
 print TestCaseTest("testFailedResultFormatting").run().summary()
 print TestCaseTest("testFailedResult").run().summary()
+print TestCaseTest("testSuite").run().summary()
